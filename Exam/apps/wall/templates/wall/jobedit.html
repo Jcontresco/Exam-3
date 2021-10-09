@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Hello, {{request.session.name}}! Let's edit your job!</h1>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="jobs_title">
+            Title: 
+            <input type="text" value={{job_info.title}} name="jobs-title">
+        </label>
+        <label for="jobs_description">
+            Description: 
+            <input type="text" value={{job_info.description}}  name="jobs-description">
+        </label>
+        <label for="jobs_location">
+            Location: 
+            <input type="text" value={{job_info.location}}  name="jobs-location">
+        </label>
+        <a href="/dashboard"> cancel </a>
+        <input type="submit" value="Edit">
+    </form>
+
+{% endblock %}

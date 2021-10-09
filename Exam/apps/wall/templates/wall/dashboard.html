@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+    <div class="dashboard-contain">
+        <br>
+        <h1>Hello, {{request.session.name}}!   </h1>
+        <br>
+        <div class="dashboard-contain">
+            <a id="job-add-btn" href="/dashboard/jobs/new">New Job!</a>
+            <br>
+            <h2>Everyones's jobs:</h2>
+            <table>
+                <tr>
+                    <th>Job</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+                {% for jobs in all_jobs %}
+                    <tr>
+                        <td>{{jobs.title}}</td>
+                        <td>{{jobs.location}}</td>
+                        <td>
+                            <a href="/dashboard/jobs/{{jobs.id}}">View</a>
+                        </td> 
+                        {% if user == jobs.user %}
+                        <td>
+                            <a href="/dashboard/jobs/edit/{{jobs.id}}">Edit</a>
+                            <a href="delete/{{jobs.id}}">Remove</a>
+                        </td>  
+                        {% endif %}
+                        {% if user not in jobs.join.all %}
+                        <td>
+                            <a href="add_job/{{jobs.id}}">Add</a>
+                        </td> 
+                        {% endif %} 
+                        
+                    </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <h2>{{request.session.name}} jobs</h2>
+            <table>
+                <tr>
+                    <th>Job </th>
+                    <th>Actions</th>
+                </tr>
+                {% for jobs in user.joined_user.all %}
+                <tr>
+                    <td>{{jobs.title}}</td>
+                    <td>
+                        <a href="/dashboard/jobs/{{jobs.id}}">View</a>
+                        <a href="/dashboard">Done</a>
+                        <a href="delete/{{jobs.id}}">Give Up</a>
+                    </td> 
+                </tr> 
+                {% endfor %}
+            </table>
+            <br>
+            
+        </div>
+    </div>
+{% endblock %}

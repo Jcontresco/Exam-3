@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block content %} 
+
+<h1>Hello {{request.session.name}}! These are the job details!</h1>
+<h2>{{job_desc.title}}</h2>
+<p>{{job_desc.description}}</p>
+<p>Location: {{job_desc.location}}</p>
+<p>Posted by: {{job_desc.user.first_name}} </p>
+<p>Posted on: {{job_desc.created_at}}</p>
+
+
+{% if user not in job_desc.join.all %}
+    <a href="/dashboard">Add</a>
+{% else %}
+    <a href="/dashboard">Give Up</a>
+{% endif %} 
+
+{% endblock %}
